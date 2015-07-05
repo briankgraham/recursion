@@ -5,4 +5,13 @@
 
 var stringifyJSON = function(obj) {
   // your code goes here
+  var result;
+  if (obj === null){ return 'null';}
+  if (typeof obj === 'boolean') return obj.toString();
+  if (typeof obj === 'number') return obj.toString();
+  if (Array.isArray(obj)){
+  	return '[' + _.map(obj, function(item){
+  		return stringifyJSON(item);
+  	}).join(',') + ']';
+  }
 };
