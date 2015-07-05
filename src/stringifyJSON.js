@@ -18,7 +18,9 @@ var stringifyJSON = function(obj) {
   if (typeof obj === 'object'){
   	var result = [];
   	_.each(obj, function(value, key){
-  		if (value){ result.push('"' + key + '":' + '"' + value + '"');}
+  		value = stringifyJSON(value);
+  		if (value){ result.push('"' + key + '":' + value);}
+
   	});
   	return '{' + result.join(',') + '}';
   }
