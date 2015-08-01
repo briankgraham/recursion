@@ -6,18 +6,21 @@
 
 var getElementsByClassName = function (className) { 
   var result = [];
-  		walkIt = function (node) {
-  			var child;
-  			if (node.className && node.classList.contains(className)) {
-  				result.push(node);
-  			}
+  		walkIt = function (node, callback) {
+  			var child, theList, i;
+  			callback(node);
   			if (node.childNodes) {
-          for (var i = 0; i < node.childNodes.length; i++) {
+  				theList = node.childNodes.length;
+          for (i = 0; i < theList; i++) {
           	child = node.childNodes[i];
-          	walkIt(child);
+          	walkIt(child, callback);
           }
   			}
   		};
-  walkIt(document.body);
+  walkIt(document.body, function (node) {
+  	if (node.className && node.classList.contains(className)) {
+  		result.push(node);
+  	}
+  });
   return result;
 };
