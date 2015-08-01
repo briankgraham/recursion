@@ -5,29 +5,19 @@
 // But instead we're going to implement it from scratch:
 
 var getElementsByClassName = function (className) { 
-			var result = [];
-			travTheDom(document.body, function (node) {
-				var i, a, c = node.className;
-				if (c) {
-					a = c.split(' ');
-					for (i = 0; i < a.length; i++) {
-						if (a[i] === className) {
-							result.push(node);
-							break;
-						}
-					}
-				}
-			});
-			return result;
-    },
-    travTheDom = function (node, callback) {
-  	  callback(node);
-  	  node = node.firstChild;
-
-  	  while (node) {
-  		  travTheDom(node, callback);
-  		  node = node.nextSibling;
-      }
-    };
-
-
+  var result = [];
+  		walkIt = function (node) {
+  			var child;
+  			if (node.className && node.classList.contains(className)) {
+  				result.push(node);
+  			}
+  			if (node.childNodes) {
+          for (var i = 0; i < node.childNodes.length; i++) {
+          	child = node.childNodes[i];
+          	walkIt(child);
+          }
+  			}
+  		};
+  walkIt(document.body);
+  return result;
+};
