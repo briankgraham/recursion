@@ -5,15 +5,14 @@
 // But instead we're going to implement it from scratch:
 
 var getElementsByClassName = function (className) { 
-  var result = [];
+  var result = [],
   		walkIt = function (node, callback) {
-  			var child, theList, i;
+  			var theList, i;
   			callback(node);
   			if (node.childNodes) {
   				theList = node.childNodes.length;
-          for (i = 0; i < theList; i++) {
-          	child = node.childNodes[i];
-          	walkIt(child, callback);
+          for (i = 0; i < theList; i++) { 
+          	walkIt(node.childNodes[i], callback);
           }
   			}
   		};
@@ -24,3 +23,4 @@ var getElementsByClassName = function (className) {
   });
   return result;
 };
+
