@@ -5,23 +5,22 @@
 
 var stringifyJSON = function(obj) {
   // your code goes here
-  if (obj === null) { return 'null';}
-  if (typeof obj === 'boolean') return ''+ obj + '';
-  if (typeof obj === 'number') return '' + obj + '';
-  if (typeof obj === 'string') return '"' + obj + '"';
+  if (typeof obj === 'boolean' || obj === null || typeof obj === 'number') { return ''+ obj; }
+  if (typeof obj === 'string') { return '"' + obj + '"'; }
   if (Array.isArray(obj)){
   	return '[' + _.map(obj, function(item){
   		return stringifyJSON(item);
   	}).join(',') + ']';
   }
-  if (typeof obj === 'object'){
+  if (obj && typeof obj === 'object'){
   	return '{' + _.chain(obj)
-					  	.map(function(value, key){
+					  	.map(function (value, key) {
 					  		value = stringifyJSON(value);
 					  		if (value){ return stringifyJSON(key) + ':' + value; }
 					  	})
 					  	.filter(function (item) {
-					  		if (typeof item !== 'undefined') return true;
+					  		if (typeof item !== 'undefined') { return true; }
 					  	}).value() + '}';
   }
 };
+
